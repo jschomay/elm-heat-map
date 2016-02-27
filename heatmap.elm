@@ -2,17 +2,42 @@ import Text exposing (..)
 import Color exposing (..)
 import Graphics.Element exposing (..)
 import Graphics.Collage exposing (..)
+import Random exposing (..)
 
-main = 
-    collage 800 600 generateSparks
+randomPoint : Generator (Float,Float)
+randomPoint =
+  pair (float -400 400) (float -300 300)
 
-generateSparks: List Form
-generateSparks =
-  [ spark (100,-30) 50, spark (50, -100) 150, spark (-20, -30) 90 ]
+randomLevel : Generator Float
+randomLevel =
+  float 20 300
+
+generateSpark: Int -> Form
+generateSpark seed =
+  let ( ( coords, _ ), ( level, _ ) ) = ( generate randomPoint <| initialSeed seed, generate randomLevel <| initialSeed seed)
+  in
+    spark coords level
+
+sparksList: List Form
+sparksList =
+  [
+    generateSpark 1,
+    generateSpark 2,
+    generateSpark 3,
+    generateSpark 4,
+    generateSpark 5,
+    generateSpark 6
+  ]
 
 type alias Point = ( Float, Float )
 spark: Point -> Float -> Form
 spark coords radius =
-  circle radius
-    |> gradient ( radial (0,0) 0 (0,0) radius [ (  0.5, rgba 200 0 0 0.5 ) , ( 1, rgba 100 0 0 0 ) ] )
-    |> move coords
+  let grad = radial (0,0) 0 (0,0) radius [ (  0.5, rgba 200 0 0 0.5 ) , ( 1, rgba 100 0 0 0 ) ] 
+  in
+    circle radius
+      |> gradient grad
+      |> move coords
+
+
+main = 
+    collage 800 600 sparksList

@@ -1,0 +1,93 @@
+[
+    {
+        "hostname": "brighton",
+        "level": 0.006474,
+        "timestamp": "2016-02-27T00:05:17.262Z",
+        "x": 2225,
+        "y": 55
+    },
+    {
+        "hostname": "monaco",
+        "level": 0.034273,
+        "timestamp": "2016-02-27T00:05:26.548Z",
+        "x": 2310,
+        "y": 248
+    },
+    {
+        "hostname": "zuni",
+        "level": 0.020775,
+        "timestamp": "2016-02-27T00:05:27.104Z",
+        "x": 1987,
+        "y": 113
+    },
+    {
+        "hostname": "brighton",
+        "level": 0.007491,
+        "timestamp": "2016-02-27T00:05:27.622Z",
+        "x": 2225,
+        "y": 55
+    },
+    {
+        "hostname": "monaco",
+        "level": 0.025526,
+        "timestamp": "2016-02-27T00:05:36.951Z",
+        "x": 2310,
+        "y": 248
+    },
+    {
+        "hostname": "zuni",
+        "level": 0.013568,
+        "timestamp": "2016-02-27T00:05:37.455Z",
+        "x": 1987,
+        "y": 113
+    },
+    {
+        "hostname": "brighton",
+        "level": 0.006294,
+        "timestamp": "2016-02-27T00:05:37.992Z",
+        "x": 2225,
+        "y": 55
+    },
+    {
+        "hostname": "monaco",
+        "level": 0.029957,
+        "timestamp": "2016-02-27T00:05:47.300Z",
+        "x": 2310,
+        "y": 248
+    },
+    {
+        "hostname": "zuni",
+        "level": 0.016516,
+        "timestamp": "2016-02-27T00:05:47.813Z",
+        "x": 1987,
+        "y": 113
+    },
+    {
+        "hostname": "brighton",
+        "level": 0.006949,
+        "timestamp": "2016-02-27T00:05:48.348Z",
+        "x": 2225,
+        "y": 55
+    },
+    {
+        "hostname": "monaco",
+        "level": 0.028752,
+        "timestamp": "2016-02-27T00:05:58.240Z",
+        "x": 2310,
+        "y": 248
+    },
+    {
+        "hostname": "zuni",
+        "level": 0.016668,
+        "timestamp": "2016-02-27T00:05:58.791Z",
+        "x": 1987,
+        "y": 113
+    },
+    {
+        "hostname": "brighton",
+        "level": 0.006118,
+        "timestamp": "2016-02-27T00:05:59.251Z",
+        "x": 2225,
+        "y": 55
+    }
+]
