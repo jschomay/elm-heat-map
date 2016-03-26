@@ -1,52 +1,40 @@
+module Heatmap where
+
+import Model exposing (Spark)
 import Text exposing (..)
 import Color exposing (..)
 import Graphics.Element exposing (..)
 import Graphics.Collage exposing (..)
-import Random exposing (..)
-
-randomPoint : Generator (Int, Int)
-randomPoint =
-  pair (int -300 300) (int -400 400)
-
-randomLevel : Generator Int
-randomLevel =
-  int  20 300
-
-generateSpark: Int -> Form
-generateSpark seed =
-  let ( ( coords, _ ), ( level, _ ) ) = ( generate randomPoint <| initialSeed seed, generate randomLevel <| initialSeed seed)
-  in
-    spark coords level
-
-sparksList: List Form
-sparksList =
-  [
-    generateSpark 1,
-    generateSpark 2,
-    generateSpark 3,
-    generateSpark 4,
-    generateSpark 5,
-    generateSpark 6
-  ]
+import List
 
 type alias Point = ( Int, Int )
-spark: Point -> Int -> Form
+spark: Point -> Float -> Form
 spark (x, y) radius =
-  let grad = radial (0,0) 0 (0,0) ( toFloat radius ) [ (  0.5, rgba 200 0 0 0.5 ) , ( 1, rgba 100 0 0 0 ) ] 
-  in
-    circle ( toFloat radius )
-      |> gradient grad
-      |> move (toFloat x, toFloat y)
+  circle radius
+    |> filled orange
+    |> alpha 0.02
+    |> move (toFloat x, toFloat y)
 
-blueprint: Int -> Int -> Form
-blueprint w h =
-  rect ( toFloat w ) ( toFloat h )
-    |> outlined ( { defaultLine | width = 2 } )
+floorplan: Int -> Int -> Form
+floorplan w h =
+  -- note, the image is not included in the repo for security reasons
+  -- download it from the tracker/gachan repo
+  (image w h "/floorplan.png")
+    |> toForm
+
+sparks : Int -> Int -> List Spark -> List Form
+sparks w h =
+  let toSpark s =
+    let {x, y, level} = s
+    in spark ((round (toFloat x - toFloat w/2)), -(round (toFloat y - toFloat h/2))) (level * 1000)
+  in List.map toSpark
 
 
-main = 
-  let
-      w = 800
-      h = 600
-  in
-     collage w h ( [ blueprint w h ] ++ sparksList )
+heatmap : List Spark -> Element
+heatmap sparksData =
+  let w = 2789
+      h = 806
+  in collage w h (
+    [ floorplan w h
+    , group (sparks w h sparksData)
+    ])
