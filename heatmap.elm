@@ -8,6 +8,7 @@ import Graphics.Collage exposing (..)
 import List
 
 type alias Point = ( Int, Int )
+
 spark: Point -> Float -> Form
 spark (x, y) radius =
   circle radius
@@ -26,7 +27,7 @@ sparks : Int -> Int -> List Spark -> List Form
 sparks w h =
   let toSpark s =
     let {x, y, level} = s
-    in spark ((round (toFloat x - toFloat w/2)), -(round (toFloat y - toFloat h/2))) (level * 1000)
+    in spark ((round (toFloat x - toFloat w/2)), -(round (toFloat y - toFloat h/2))) (level * 1500)
   in List.map toSpark
 
 
@@ -36,5 +37,5 @@ heatmap sparksData =
       h = 806
   in collage w h (
     [ floorplan w h
-    , group (sparks w h sparksData)
+    , group (sparks w h sparksData) |> move (-1500, 0)
     ])

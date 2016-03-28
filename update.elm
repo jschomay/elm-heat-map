@@ -6,6 +6,7 @@ import Signal
 type Action
   = NoOp
   | LoadData (List Spark)
+  | FilteredTime Int
 
 update : Action -> Model -> Model
 update action model =
@@ -13,11 +14,15 @@ update action model =
     NoOp ->
       model
 
-    LoadData model' ->
-      model'
+    LoadData heatmapData ->
+      {model | heatmapData = heatmapData}
+
+    FilteredTime at ->
+      {model | filteredTime = at}
 
 actions : Signal.Mailbox Action
 actions =
   Signal.mailbox NoOp
+
 
 model = Signal.foldp update init actions.signal
