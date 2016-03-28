@@ -36,6 +36,6 @@ heatmap sparksData =
   let w = 2789
       h = 806
   in collage w h (
-    [ floorplan w h
+    [ floorplan w h |> move (-1500, 0)
     , group (sparks w h sparksData) |> move (-1500, 0)
     ])
