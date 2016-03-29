@@ -13,7 +13,7 @@ spark: Point -> Float -> Form
 spark (x, y) radius =
   circle radius
     |> filled orange
-    |> alpha 0.02
+    |> alpha 0.2
     |> move (toFloat x, toFloat y)
 
 floorplan: Int -> Int -> Form

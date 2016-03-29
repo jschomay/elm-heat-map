@@ -21,10 +21,25 @@ view {filteredTime, heatmapData} =
 
       at time m =
         case m.timestamp of
-          Just t -> Date.hour t == time
+          Just t -> Date.hour t == getHours time && Date.minute t == getMinutes time
           Nothing -> False
 
+      filteredHeatMapData =
+        List.filter (at filteredTime) heatmapData
+
+      getHours time =
+        (truncate (toFloat time / 6))
+
+      getMinutes time =
+        rem time 6
+
+      samplesCount =
+        List.foldl ((+) << (always 1)) 0 filteredHeatMapData 
+
+      displayTime inMinutes =
+        (toString <| getHours inMinutes) ++ ":" ++ ( toString <| getMinutes inMinutes)
+
   in flow down
-     [ "Office sound levels from " ++ toString filteredTime ++ ":00 to " ++ toString (filteredTime + 1) ++ ":00 (move mouse from left to right to change time)" |> show
-    , heatmap <| List.filter (at filteredTime) heatmapData
+     [ "Office sound levels from " ++ displayTime filteredTime ++ "0 to " ++ displayTime (filteredTime + 1) ++ "0 (move mouse from left to right to change time)" |> show
+    , heatmap filteredHeatMapData
     ]
