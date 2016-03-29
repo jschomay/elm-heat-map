@@ -1,9 +1,10 @@
 module View where
 
+import Clock
 import Heatmap exposing (heatmap)
 import Model exposing (Model)
 import Update exposing (model)
-import Graphics.Collage exposing (toForm, Form)
+import Graphics.Collage exposing (..)
 import Graphics.Element exposing (flow, down, show)
 import Window
 import Signal
@@ -11,8 +12,8 @@ import List
 import Html exposing (..)
 import Date
 
-view : Model -> Graphics.Element.Element
-view {filteredTime, heatmapData} =
+view : (Int, Int) -> Model -> Graphics.Element.Element
+view (w, h) {filteredTime, heatmapData} =
   let
       getTimestamp m =
         case m.timestamp of
@@ -41,5 +42,10 @@ view {filteredTime, heatmapData} =
 
   in flow down
      [ "Office sound levels from " ++ displayTime filteredTime ++ "0 to " ++ displayTime (filteredTime + 1) ++ "0 (move mouse from left to right to change time)" |> show
-    , heatmap filteredHeatMapData
-    ]
+     , collage w h
+       [ heatmap filteredHeatMapData
+         |> move (-(toFloat w / 3), 0)
+       , Clock.clock (getHours filteredTime) (getMinutes filteredTime * 10)
+         |> move (-(toFloat w / 2 - 100), toFloat h / 2 - 100)
+       ]
+     ]

@@ -30,12 +30,11 @@ sparks w h =
     in spark ((round (toFloat x - toFloat w/2)), -(round (toFloat y - toFloat h/2))) (level * 1500)
   in List.map toSpark
 
-
-heatmap : List Spark -> Element
+heatmap : List Spark -> Form
 heatmap sparksData =
   let w = 2789
       h = 806
-  in collage w h (
-    [ floorplan w h |> move (-1500, 0)
-    , group (sparks w h sparksData) |> move (-1500, 0)
-    ])
+  in group
+    [ floorplan w h
+    , group (sparks w h sparksData)
+    ]

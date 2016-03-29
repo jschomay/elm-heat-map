@@ -9,6 +9,7 @@ import Json.Decode
 import Task exposing (Task, andThen)
 import Signal
 import Html
+import Window
 
 get : Task Http.Error (List Spark)
 get =
@@ -25,7 +26,7 @@ port io =
 
 main : Signal Graphics.Element.Element
 main =
-  Signal.map view model
+  Signal.map2 view Window.dimensions model
 
 {- TODO: 
 - ~~map real data to floor plan~~
